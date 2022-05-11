@@ -4,6 +4,7 @@ const fs = require("fs");
 const { groth16 } = require("snarkjs");
 
 function unstringifyBigInts(o) {
+
     if ((typeof(o) == "string") && (/^[0-9]+$/.test(o) ))  {
         return BigInt(o);
     } else if ((typeof(o) == "string") && (/^0x[0-9a-fA-F]+$/.test(o) ))  {
@@ -42,9 +43,9 @@ describe("HelloWorld", function () {
         const editedPublicSignals = unstringifyBigInts(publicSignals);
         const editedProof = unstringifyBigInts(proof);
         const calldata = await groth16.exportSolidityCallData(editedProof, editedPublicSignals);
-    
+
         const argv = calldata.replace(/["[\]\s]/g, "").split(',').map(x => BigInt(x).toString());
-    
+
         const a = [argv[0], argv[1]];
         const b = [[argv[2], argv[3]], [argv[4], argv[5]]];
         const c = [argv[6], argv[7]];
@@ -65,6 +66,7 @@ describe("HelloWorld", function () {
 describe("Multiplier3 with Groth16", function () {
 
     beforeEach(async function () {
+        
         //[assignment] insert your script here
     });
 
